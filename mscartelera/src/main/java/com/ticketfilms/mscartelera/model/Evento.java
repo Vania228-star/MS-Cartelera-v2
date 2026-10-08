@@ -47,7 +47,6 @@ public class Evento{
     @Column(name= "estado", nullable = false)
     private String estado;
 
-    // Nuevos (opcionales, para no romper filas existentes)
     @Column(name= "genero")
     private String genero;
 
@@ -63,7 +62,12 @@ public class Evento{
     @Column(name= "ciudad", length = 100)
     private String ciudad;
 
-    // Calculados al consultar un evento; no son columnas de la tabla.
+    @Column(name= "region", length = 100)
+    private String region;
+
+    @Column(name= "sede", length = 150)
+    private String sede;
+
     @Transient
     private LocalDateTime proximaFuncion;
 

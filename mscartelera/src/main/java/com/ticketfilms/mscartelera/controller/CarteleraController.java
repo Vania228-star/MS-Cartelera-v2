@@ -30,8 +30,12 @@ public class CarteleraController {
     private final FuncionService funcionService;
 
     @GetMapping("/eventos")
-    public ResponseEntity<List<Evento>> listarEventos() {
-        List<Evento> eventos = eventoService.listarEventos();
+    public ResponseEntity<List<Evento>> listarEventos(
+            @RequestParam(required = false) String ciudad,
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) String tipoEvento) {
+        
+        List<Evento> eventos = eventoService.listarEventosFiltrados(ciudad, region, tipoEvento);
         return ResponseEntity.ok(eventos);
     }
 
@@ -62,8 +66,6 @@ public class CarteleraController {
         return ResponseEntity.status(201).body(nuevoEvento);
     }
 
-    // Busca la primera función futura del evento (hora de Chile, porque el
-    // servidor en EC2 corre en UTC) y copia su fecha y sala al evento.
     private Evento conProximaFuncion(Evento evento) {
         LocalDateTime ahora = LocalDateTime.now(ZoneId.of("America/Santiago"));
         funcionService.listarFuncionesPorEventos(evento.getId()).stream()

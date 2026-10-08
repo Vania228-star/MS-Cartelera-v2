@@ -13,4 +13,8 @@ public interface EventoRepository extends JpaRepository<Evento, Long>{
     List<Evento> findByTipoEvento(String tipoEvento);
 
     List<Evento> findByEstado(String estado);
+
+    List<Evento> findByCiudad(String ciudad);
+
+    List<Evento> findByRegion(String region);
 }

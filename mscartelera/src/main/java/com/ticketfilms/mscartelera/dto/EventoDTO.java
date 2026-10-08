@@ -14,4 +14,11 @@ public class EventoDTO {
     private String clasificacion;
     private String director;
     private String estado;
+    private String genero;
+    private String reparto;
+    private String idioma;
+    private String origen;
+    private String ciudad;
+    private String region;
+    private String sede;
 }

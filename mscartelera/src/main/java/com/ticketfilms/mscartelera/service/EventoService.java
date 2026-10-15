@@ -29,13 +29,14 @@ public class EventoService {
 
     public List<Evento> listarEventosFiltrados(String ciudad, String region, String tipoEvento, String sede, String genero, LocalDateTime fechaDesde) {
         List<Evento> eventos = eventoRepository.findAll();
-        
+
         return eventos.stream()
                 .filter(e -> ciudad == null || (e.getCiudad() != null && e.getCiudad().equalsIgnoreCase(ciudad)))
                 .filter(e -> region == null || (e.getRegion() != null && e.getRegion().equalsIgnoreCase(region)))
                 .filter(e -> tipoEvento == null || (e.getTipoEvento() != null && e.getTipoEvento().equalsIgnoreCase(tipoEvento)))
                 .filter(e -> sede == null || (e.getSede() != null && e.getSede().equalsIgnoreCase(sede)))
-                .filter(e -> genero == null || (e.getGenero() != null && e.getGenero().equalsIgnoreCase(genero)))
+                .filter(e -> genero == null || (e.getGenero() != null
+                        && e.getGenero().toLowerCase().contains(genero.trim().toLowerCase())))
                 .filter(e -> fechaDesde == null || tieneFuncionPosterior(e.getId(), fechaDesde))
                 .collect(Collectors.toList());
     }

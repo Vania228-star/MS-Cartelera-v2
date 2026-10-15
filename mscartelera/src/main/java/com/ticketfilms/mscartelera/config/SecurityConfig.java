@@ -28,6 +28,7 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/actuator/**").permitAll()
+                .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/cartelera/**").permitAll()
                 .anyRequest().authenticated()
             )
@@ -40,6 +41,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
+            "https://ticket-films-frontend.vercel.app",
             "http://localhost:3000",
             "http://localhost:4200",
             "http://localhost:5173"

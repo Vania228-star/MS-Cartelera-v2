@@ -16,12 +16,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ticketfilms.mscartelera.model.Evento;
 import com.ticketfilms.mscartelera.repository.EventoRepository;
+import com.ticketfilms.mscartelera.repository.FuncionRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class EventoServiceTest {
 
     @Mock
     private EventoRepository eventoRepository;
+
+    @Mock
+    private FuncionRepository funcionRepository;
 
     @InjectMocks 
     private EventoService eventoService;
@@ -60,12 +64,12 @@ public class EventoServiceTest {
 
         when(eventoRepository.findAll()).thenReturn(List.of(evento1, evento2));
 
-        List<Evento> filtradosSantiago = eventoService.listarEventosFiltrados("Santiago", null, null);
+        List<Evento> filtradosSantiago = eventoService.listarEventosFiltrados("Santiago", null, null, null, null, null);
         assertNotNull(filtradosSantiago);
         assertEquals(1, filtradosSantiago.size());
         assertEquals("Lollapalooza", filtradosSantiago.get(0).getTitulo());
 
-        List<Evento> filtradosTeatroValpo = eventoService.listarEventosFiltrados(null, "Valparaíso", "Teatro");
+        List<Evento> filtradosTeatroValpo = eventoService.listarEventosFiltrados(null, "Valparaíso", "Teatro", null, null, null);
         assertNotNull(filtradosTeatroValpo);
         assertEquals(1, filtradosTeatroValpo.size());
         assertEquals("Obra Infantil", filtradosTeatroValpo.get(0).getTitulo());

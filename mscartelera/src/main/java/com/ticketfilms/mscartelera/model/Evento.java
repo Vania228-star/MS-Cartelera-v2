@@ -11,6 +11,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 @Entity
 @Table(name= "evento")
 @Data
@@ -23,18 +26,22 @@ public class Evento{
     @Column(name= "evento_id", nullable = false, unique = true)
     private String eventoid;
 
+    @NotBlank(message = "El título es obligatorio")
     @Column(name= "titulo", nullable = false)
     private String titulo;
 
+    @NotBlank(message = "La descripción es obligatoria")
     @Column(name= "descripcion", nullable = false)
     private String descripcion;
 
+    @NotBlank(message = "El tipo de evento es obligatorio")
     @Column(name= "tipo_evento", nullable = false)
     private String tipoEvento;
 
     @Column(name= "url_imagen", nullable = false)
     private String urlImagen;
 
+    @NotNull
     @Column(name= "duracion_minutos", nullable = false)
     private Integer duracionMinutos;
 

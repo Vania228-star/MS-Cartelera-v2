@@ -1,6 +1,5 @@
 package com.ticketfilms.mscartelera.controller;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,14 +36,15 @@ public class CarteleraControllerTest {
         evento.setId(1L);
         evento.setTitulo("Concierto de Rock");
 
-        when(eventoService.listarEventosFiltrados(null, null, null)).thenReturn(List.of(evento));
+        when(eventoService.listarEventosFiltrados(null, null, null, null, null, null)).thenReturn(List.of(evento));
 
         mockMvc.perform(get("/api/cartelera/eventos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].titulo").value("Concierto de Rock"));
 
-        verify(eventoService, times(1)).listarEventosFiltrados(null, null, null);
+        verify(eventoService, times(1)).listarEventosFiltrados(null, null, null, null, null, null);
     }
+    
 
     @Test
     public void testGetEventosConFiltrosEndpoint() throws Exception {
@@ -55,7 +55,7 @@ public class CarteleraControllerTest {
         evento.setRegion("Metropolitana");
         evento.setTipoEvento("Teatro");
 
-        when(eventoService.listarEventosFiltrados("Santiago", "Metropolitana", "Teatro"))
+        when(eventoService.listarEventosFiltrados("Santiago", "Metropolitana", "Teatro", null, null, null))
                 .thenReturn(List.of(evento));
 
         mockMvc.perform(get("/api/cartelera/eventos")
@@ -67,6 +67,7 @@ public class CarteleraControllerTest {
                 .andExpect(jsonPath("$[0].ciudad").value("Santiago"))
                 .andExpect(jsonPath("$[0].tipoEvento").value("Teatro"));
 
-        verify(eventoService, times(1)).listarEventosFiltrados("Santiago", "Metropolitana", "Teatro");
+        verify(eventoService, times(1)).listarEventosFiltrados("Santiago", "Metropolitana", "Teatro", null, null, null);
     }
+    
 }

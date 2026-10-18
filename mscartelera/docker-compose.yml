@@ -1,12 +1,19 @@
+# Requiere la red compartida: docker network create ticketfilms-net
 services:
   ms-cartelera:
     build: .
-    container_name: ms-cartelera-container
+    container_name: ms-cartelera
+    restart: unless-stopped
     ports:
       - "8081:8081"
     environment:
-      - DB_URL=${DB_URL}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - COGNITO_ISSUER_URI=${COGNITO_ISSUER_URI}
-    restart: always
+      JAVA_TOOL_OPTIONS: "-Xmx384m"
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      COGNITO_ISSUER_URI: ${COGNITO_ISSUER_URI}
+
+networks:
+  default:
+    name: ticketfilms-net
+    external: true
